@@ -52,11 +52,6 @@ class JokeList extends React.Component {
     this.setState((allJokes) =>
       allJokes.map((j) => (j.id === id ? { ...j, votes: j.votes + delta } : j))
     );
-    this.setState((st) => ({
-      jokes: st.jokes.map((j) =>
-        j.id === id ? { ...j, votes: j.votes + delta } : j
-      ),
-    }));
   }
 
   render() {
