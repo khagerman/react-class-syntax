@@ -14,16 +14,17 @@ class JokeList extends React.Component {
     this.vote = this.vote.bind(this);
   }
   componentDidMount() {
-    if (this.state.jokes.length < this.props.numJokesToGet) this.getJokes();
+    if (this.state.jokes.length === 0) this.getJokes();
   }
   componentDidUpdate() {
-    if (this.state.jokes.length < this.props.numJokesToGet) this.getJokes();
+    if (this.state.jokes.length === 0) this.getJokes();
   }
 
   async getJokes() {
     let j = this.state.jokes;
     console.log(j);
-    let seenJokes = new Set(j.map((j) => j.id));
+    let seenJokes = new Set();
+
     try {
       while (j.length < this.props.numJokesToGet) {
         let res = await axios.get("https://icanhazdadjoke.com", {
