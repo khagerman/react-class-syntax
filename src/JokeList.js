@@ -23,7 +23,7 @@ class JokeList extends React.Component {
   async getJokes() {
     let j = this.state.jokes;
     console.log(j);
-    let seenJokes = new Set();
+    let seenJokes = new Set(j.map((j) => j.id));
     try {
       while (j.length < this.props.numJokesToGet) {
         let res = await axios.get("https://icanhazdadjoke.com", {
@@ -46,12 +46,14 @@ class JokeList extends React.Component {
 
   // }, [jokes, numJokesToGet])
   generateNewJokes() {
-    this.setState([]);
+    this.setState({ jokes: [] });
   }
   vote(id, delta) {
-    this.setState((allJokes) =>
-      allJokes.map((j) => (j.id === id ? { ...j, votes: j.votes + delta } : j))
-    );
+    this.setState((state) => ({
+      jokes: state.jokes.map((j) =>
+        j.id === id ? { ...j, votes: j.votes + delta } : j
+      ),
+    }));
   }
 
   render() {

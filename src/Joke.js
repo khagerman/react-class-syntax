@@ -9,6 +9,7 @@ class Joke extends React.Component {
     this.downVote = this.downVote.bind(this);
   }
   upVote() {
+    // alert("up!");
     this.props.vote(this.props.id, +1);
   }
   downVote() {
